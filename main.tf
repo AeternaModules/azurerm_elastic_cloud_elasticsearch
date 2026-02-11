@@ -1,5 +1,5 @@
-resource "azurerm_elastic_cloud_elasticsearch" "elastic_cloud_elasticsearchs" {
-  for_each = var.elastic_cloud_elasticsearchs
+resource "azurerm_elastic_cloud_elasticsearch" "elastic_cloud_elasticsearches" {
+  for_each = var.elastic_cloud_elasticsearches
 
   elastic_cloud_email_address = each.value.elastic_cloud_email_address
   location                    = each.value.location
