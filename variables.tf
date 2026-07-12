@@ -29,32 +29,16 @@ EOT
     monitoring_enabled          = optional(bool) # Default: true
     tags                        = optional(map(string))
     logs = optional(object({
-      filtering_tag = optional(object({
+      filtering_tag = optional(list(object({
         action = string
         name   = string
         value  = string
-      }))
+      })))
       send_activity_logs     = optional(bool) # Default: false
       send_azuread_logs      = optional(bool) # Default: false
       send_subscription_logs = optional(bool) # Default: false
     }))
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.elastic_cloud_elasticsearches : (
-        v.logs == null || (v.logs.filtering_tag == null || (length(v.logs.filtering_tag.name) > 0))
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.elastic_cloud_elasticsearches : (
-        v.logs == null || (v.logs.filtering_tag == null || (length(v.logs.filtering_tag.value) > 0))
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_elastic_cloud_elasticsearch's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -81,6 +65,12 @@ EOT
   #   source:    location.EnhancedValidate: no recognizable `if ... { errors = append(...) }` pattern - read it by hand
   # path: elastic_cloud_email_address
   #   source:    validation.IsEmailAddress(...) - no translation rule yet, add one
+  # path: logs.filtering_tag.name
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: logs.filtering_tag.value
+  #   condition: length(value) > 0
+  #   message:   must not be empty
   # path: logs.filtering_tag.action
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
   # path: tags

@@ -13,7 +13,7 @@ resource "azurerm_elastic_cloud_elasticsearch" "elastic_cloud_elasticsearches" {
     for_each = each.value.logs != null ? [each.value.logs] : []
     content {
       dynamic "filtering_tag" {
-        for_each = logs.value.filtering_tag != null ? [logs.value.filtering_tag] : []
+        for_each = logs.value.filtering_tag != null ? logs.value.filtering_tag : []
         content {
           action = filtering_tag.value.action
           name   = filtering_tag.value.name
