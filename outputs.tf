@@ -1,3 +1,7 @@
+output "elastic_cloud_elasticsearches_id" {
+  description = "Map of id values across all elastic_cloud_elasticsearches, keyed the same as var.elastic_cloud_elasticsearches"
+  value       = { for k, v in azurerm_elastic_cloud_elasticsearch.elastic_cloud_elasticsearches : k => v.id }
+}
 output "elastic_cloud_elasticsearches_elastic_cloud_deployment_id" {
   description = "Map of elastic_cloud_deployment_id values across all elastic_cloud_elasticsearches, keyed the same as var.elastic_cloud_elasticsearches"
   value       = { for k, v in azurerm_elastic_cloud_elasticsearch.elastic_cloud_elasticsearches : k => v.elastic_cloud_deployment_id }
