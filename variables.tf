@@ -26,7 +26,7 @@ EOT
     name                        = string
     resource_group_name         = string
     sku_name                    = string
-    monitoring_enabled          = optional(bool) # Default: true
+    monitoring_enabled          = optional(bool)
     tags                        = optional(map(string))
     logs = optional(object({
       filtering_tag = optional(list(object({
@@ -34,9 +34,9 @@ EOT
         name   = string
         value  = string
       })))
-      send_activity_logs     = optional(bool) # Default: false
-      send_azuread_logs      = optional(bool) # Default: false
-      send_subscription_logs = optional(bool) # Default: false
+      send_activity_logs     = optional(bool)
+      send_azuread_logs      = optional(bool)
+      send_subscription_logs = optional(bool)
     }))
   }))
   # --- Unconfirmed validation candidates, derived from azurerm_elastic_cloud_elasticsearch's provider source ---
