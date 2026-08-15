@@ -36,7 +36,7 @@ output "elastic_cloud_elasticsearches_location" {
 }
 output "elastic_cloud_elasticsearches_logs" {
   description = "Map of logs values across all elastic_cloud_elasticsearches, keyed the same as var.elastic_cloud_elasticsearches"
-  value       = { for k, v in azurerm_elastic_cloud_elasticsearch.elastic_cloud_elasticsearches : k => v.logs if v.logs != null && length(v.logs) > 0 }
+  value       = { for k, v in azurerm_elastic_cloud_elasticsearch.elastic_cloud_elasticsearches : k => one(v.logs) if v.logs != null && length(v.logs) > 0 }
 }
 output "elastic_cloud_elasticsearches_monitoring_enabled" {
   description = "Map of monitoring_enabled values across all elastic_cloud_elasticsearches, keyed the same as var.elastic_cloud_elasticsearches"
